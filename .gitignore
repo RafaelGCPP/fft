@@ -1,0 +1,15 @@
+# CMake build directory
+build/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Makefile
+
+# Compiled object files
+*.o
+
+#VSCode files
+.vscode/
+
