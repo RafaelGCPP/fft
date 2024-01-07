@@ -9,6 +9,9 @@ set(CMAKE_C_STANDARD 99)
 set(SOURCES
     main.c
     fft.c
+    fft_core.c
+    twiddle.c
+    rfft.c
 )
 
 
