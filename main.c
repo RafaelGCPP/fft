@@ -45,5 +45,13 @@ int main()
         printf("%.5f + %.5fi\n", data[2 * i], data[2 * i + 1]);
     }
 
+    irfft(data, n * 2, twiddle2);
+    printf("IFFT result:\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%.5f + %.5fi\n", data[2 * i], data[2 * i + 1]);
+    }
+
+
     return 0;
 }

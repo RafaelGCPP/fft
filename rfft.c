@@ -5,12 +5,12 @@
 
 // This code assumes that n is a power of 2 and implements
 // the real FFT algorithm. It is based on the fact that
-// the FFT of a real signal is conjugate symmetric. Then you can 
+// the FFT of a real signal is conjugate symmetric. Then you can
 // consider the real input as interleaved complex data and perform
 // a complex FFT. The even and odd parts are then computed.
 // data - input as real data.
 // n - number of real samples in the input data.
-// twiddle - precomputed twiddle factors 
+// twiddle - precomputed twiddle factors
 // the result is stored in the input array, as half of the spectrum
 // the N/2 sample is stored on the imaginary part of the first sample.
 // Reference:
@@ -30,7 +30,11 @@ void rfft(float *data, int n, float *twiddle)
     odd = (cdata[0] - conj(cdata[0])) / 2;
     cdata[0] = even - I * odd;
     cdata[0] += I * even - odd; // stores FFT[N/2] on the imaginary part of FFT[0]
-    cdata[n / 4] = ((cdata[n / 4] + conj(cdata[n / 4])) - (cdata[n / 4] - conj(cdata[n / 4]))) / 2;
+
+    even = (cdata[n / 4] + conj(cdata[n / 4])) / 2;
+    odd = (cdata[n / 4] - conj(cdata[n / 4])) / 2;
+    cdata[n / 4] = even - odd;
+    ((cdata[n / 4] + conj(cdata[n / 4])) - (cdata[n / 4] - conj(cdata[n / 4]))) / 2;
 
     for (int i = 1; i < n / 4; i++)
     {
@@ -40,10 +44,44 @@ void rfft(float *data, int n, float *twiddle)
         even = (cdata[i] + conj(cdata[n / 2 - i])) / 2;
         odd = (cdata[i] - conj(cdata[n / 2 - i])) / 2;
 
-        printf("%.5f + %.5fi\n", creal(twd[i]), cimag(twd[i]));
-        printf("%.5f + %.5fi\n", creal(cexp(-2 * M_PI * I * i / n)), cimag(cexp(-2 * M_PI * I * i / n)));
-
         cdata[i] = even - I * odd * twd[i];
         cdata[n / 2 - i] = even1 - I * odd1 * twd[n / 2 - i];
-    }    
+    }
+}
+
+void irfft(float *data, int n, float *twiddle)
+{
+    float complex *cdata = (float complex *)data;
+    float complex *twd = (float complex *)twiddle;
+
+    float complex even;
+    float complex odd;
+
+    even = (creal(cdata[0]) + cimag(cdata[0])) / 2;
+    odd = (creal(cdata[0]) - cimag(cdata[0])) / 2;
+    cdata[0] = even + I * odd;
+
+    even = (cdata[n / 4] + conj(cdata[n / 4])) / 2;
+    odd = (cdata[n / 4] + conj(cdata[n / 4])) / 2;
+    cdata[n / 4] = even + I * odd;
+
+    for (int i = 1; i < n / 4; i++)
+    {
+        float complex even1 = (cdata[n / 2 - i] + conj(cdata[i])) / 2;
+        float complex odd1 = (cdata[n / 2 - i] - conj(cdata[i])) / 2;
+
+        even = (cdata[i] + conj(cdata[n / 2 - i])) / 2;
+        odd = (cdata[i] - conj(cdata[n / 2 - i])) / 2;
+
+        cdata[i] = even + I * odd * conj(twd[i]);
+        cdata[n / 2 - i] = even1 + I * odd1 * conj(twd[n / 2 - i]);
+    }
+
+    for (int i = 0; i < n / 2; i++)
+        cdata[i] = conj(cdata[i]) / sqrt(n / 2);
+
+    radix_2_dit_fft(data, n / 2, twiddle, 2);
+
+    for (int i = 0; i < n / 2; i++)
+        cdata[i] = conj(cdata[i]) / sqrt(n / 2);
 }
