@@ -5,21 +5,16 @@
 #include "fft_core.h"
 
 
-void fft(float *data, int n, float *twiddle)
+void fft(float *data, int n, float *twiddle, int *bitrev)
 {
-    radix_2_dit_fft(data, n, twiddle, 1);
+    radix_2_dit_fft(data, n, twiddle, bitrev, 1, 1);
 }
 
-void ifft(float *data, int n, float *twiddle)
+void ifft(float *data, int n, float *twiddle, int *bitrev)
 {
     float complex *cdata = (float complex *)data;
 
-    for (int i = 0; i < n; i++)
-        cdata[i] = conj(cdata[i]) / sqrt(n);
+    radix_2_dit_fft(data, n, twiddle, bitrev, 1, -1);
 
-    radix_2_dit_fft(data, n, twiddle, 1);
-
-    for (int i = 0; i < n; i++)
-        cdata[i] = conj(cdata[i]) / sqrt(n);
 }
 

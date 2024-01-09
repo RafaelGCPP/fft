@@ -8,22 +8,16 @@
 // n - number of complex samples in the input data.
 // twiddle - precomputed twiddle factors.
 // ts - twiddle stride, used when computing the real FFT.
-void radix_2_dit_fft(float *data, int n, float *twiddle, int ts)
+void radix_2_dit_fft(float *data, int n, float *twiddle, int *bitrev, int ts, int direction)
 {
     float complex *cdata = (float complex *)data;
     float complex *twd = (float complex *)twiddle;
 
     // Bit-reverse the input data
 
-    for (int i = 1, j = 0; i < n - 1; i++)
+    for (int i = 1; i < n - 1; i++)
     {
-        int k = n >> 1;
-        while (j >= k)
-        {
-            j -= k;
-            k >>= 1;
-        }
-        j += k;
+        int j = bitrev[i];
         if (i < j)
         {
             float complex tmp = cdata[i];
@@ -41,14 +35,30 @@ void radix_2_dit_fft(float *data, int n, float *twiddle, int ts)
         {
             for (int i = 0; i < stride; i++)
             {
-                complex float a, b, w;
+                float complex a, b, w;
                 int index = j + i;
+
                 w = twd[i * tw_index * ts];
                 a = cdata[index];
                 b = cdata[index + stride];
+                if (direction == -1 && stride == 1)
+                {
+                    a = conj(a);
+                    b = conj(b);
+                }
                 b = b * w;
                 cdata[index] = a + b;
                 cdata[index + stride] = a - b;
+                if (direction == -1)
+                {
+                    cdata[index] /= 2;
+                    cdata[index + stride] /= 2;
+                    if (tw_index == 1)
+                    {
+                        cdata[index] = conj(cdata[index]);
+                        cdata[index + stride] = conj(cdata[index + stride]);
+                    }
+                }
             }
         }
     }

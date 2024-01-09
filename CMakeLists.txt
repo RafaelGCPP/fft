@@ -10,7 +10,7 @@ set(SOURCES
     main.c
     fft.c
     fft_core.c
-    twiddle.c
+    fft_init.c
     rfft.c
 )
 
