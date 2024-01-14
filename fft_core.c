@@ -1,6 +1,17 @@
 #include "fft_core.h"
 #include <math.h>
-#include <complex.h>
+
+typedef struct s_complex_float
+{
+    float real;
+    float imag;
+} cplx;
+
+#define cplx_scale(x, s) ((x).real *= (s), (x).imag *= (s), (x))
+#define cplx_add(r, x, y) ((r).real = (x).real + (y).real, (r).imag = (x).imag + (y).imag, (r))
+#define cplx_sub(r, x, y) ((r).real = (x).real - (y).real, (r).imag = (x).imag - (y).imag, (r))
+#define cplx_mul(r, x, y) ((r).real = (x).real * (y).real - (x).imag * (y).imag, (r).imag = (x).real * (y).imag + (x).imag * (y).real, (r))
+#define cplx_conj(r,x) ((r).real = (x).real, (r).imag = -(x).imag, (r))
 
 // This code assumes that n is a power of 2 and implements
 // a radix-2 DIT FFT algorithm.
@@ -8,10 +19,12 @@
 // n - number of complex samples in the input data.
 // twiddle - precomputed twiddle factors.
 // ts - twiddle stride, used when computing the real FFT.
-void radix_2_dit_fft(float *data, int n, float *twiddle, int *bitrev, int ts, int direction)
+// This version uses no internal complex data types.
+void radix_2_dit_fft_float(float *data, int n, float *twiddle, int *bitrev, int ts, int direction)
 {
-    float complex *cdata = (float complex *)data;
-    float complex *twd = (float complex *)twiddle;
+
+    cplx *cdata = (cplx *)data;
+    cplx *twd = (cplx *)twiddle;
 
     // Bit-reverse the input data
 
@@ -20,7 +33,7 @@ void radix_2_dit_fft(float *data, int n, float *twiddle, int *bitrev, int ts, in
         int j = bitrev[i];
         if (i < j)
         {
-            float complex tmp = cdata[i];
+            cplx tmp = cdata[i];
             cdata[i] = cdata[j];
             cdata[j] = tmp;
         }
@@ -35,28 +48,38 @@ void radix_2_dit_fft(float *data, int n, float *twiddle, int *bitrev, int ts, in
         {
             for (int i = 0; i < stride; i++)
             {
-                float complex a, b, w;
+                cplx a, b, w;
                 int index = j + i;
 
-                w = twd[i * tw_index * ts];
-                a = cdata[index];
-                b = cdata[index + stride];
+                w.real = twd[i * tw_index * ts].real;
+                w.imag = twd[i * tw_index * ts].imag;
+
+                a.real = cdata[index].real;
+                a.imag = cdata[index].imag;
+
+                b.real = cdata[index + stride].real;
+                b.imag = cdata[index + stride].imag;
+
                 if (direction == -1 && stride == 1)
                 {
-                    a = conj(a);
-                    b = conj(b);
+                    cplx_conj(a, a);
+                    cplx_conj(b, b);
                 }
-                b = b * w;
-                cdata[index] = a + b;
-                cdata[index + stride] = a - b;
+                cplx r;
+                cplx_mul(r, b, w);
+                b=r;
+
+                cplx_add(cdata[index], a, b);
+                cplx_sub(cdata[index + stride], a, b);
+
                 if (direction == -1)
                 {
-                    cdata[index] /= 2;
-                    cdata[index + stride] /= 2;
+                    cplx_scale(cdata[index], 0.5);
+                    cplx_scale(cdata[index + stride], 0.5);
                     if (tw_index == 1)
                     {
-                        cdata[index] = conj(cdata[index]);
-                        cdata[index + stride] = conj(cdata[index + stride]);
+                        cplx_conj(cdata[index], cdata[index]);
+                        cplx_conj(cdata[index + stride], cdata[index + stride]);
                     }
                 }
             }
