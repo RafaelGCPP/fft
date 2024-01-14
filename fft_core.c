@@ -1,17 +1,7 @@
 #include "fft_core.h"
 #include <math.h>
+#include "cplx_float.h"
 
-typedef struct s_complex_float
-{
-    float real;
-    float imag;
-} cplx;
-
-#define cplx_scale(x, s) ((x).real *= (s), (x).imag *= (s), (x))
-#define cplx_add(r, x, y) ((r).real = (x).real + (y).real, (r).imag = (x).imag + (y).imag, (r))
-#define cplx_sub(r, x, y) ((r).real = (x).real - (y).real, (r).imag = (x).imag - (y).imag, (r))
-#define cplx_mul(r, x, y) ((r).real = (x).real * (y).real - (x).imag * (y).imag, (r).imag = (x).real * (y).imag + (x).imag * (y).real, (r))
-#define cplx_conj(r,x) ((r).real = (x).real, (r).imag = -(x).imag, (r))
 
 // This code assumes that n is a power of 2 and implements
 // a radix-2 DIT FFT algorithm.
@@ -20,7 +10,7 @@ typedef struct s_complex_float
 // twiddle - precomputed twiddle factors.
 // ts - twiddle stride, used when computing the real FFT.
 // This version uses no internal complex data types.
-void radix_2_dit_fft_float(float *data, int n, float *twiddle, int *bitrev, int ts, int direction)
+void radix_2_dit_fft(float *data, int n, float *twiddle, int *bitrev, int ts, int direction)
 {
 
     cplx *cdata = (cplx *)data;
