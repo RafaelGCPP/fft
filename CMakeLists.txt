@@ -2,7 +2,8 @@
 cmake_minimum_required(VERSION 3.12)
 project(fft)
 
-
+set(CMAKE_C_COMPILER clang)
+add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 set(CMAKE_C_STANDARD 99)
 
 # Add your source files here
