@@ -10,6 +10,7 @@ int main()
     float twiddle[n];
     int bitrev[n];
 
+    printf("-=-=-=-=-=-= Complex FFT test - floating point =-=-=-=-=-=-\n");
     // Precompute twiddle factors
     n = 8;
     precompute_twiddle_factors(twiddle, n);
@@ -35,6 +36,7 @@ int main()
         printf("%.5f + %.5fi\n", data[2 * i], data[2 * i + 1]);
     }
 
+    printf("-=-=-=-=-=-= Real FFT test - floating point =-=-=-=-=-=-\n");
     n = 16;
 
     // Precompute twiddle factors

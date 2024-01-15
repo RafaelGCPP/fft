@@ -1,4 +1,5 @@
 #include "fft_core.h"
+#include <stdio.h>
 #include <math.h>
 #include "cplx_float.h"
 
@@ -41,6 +42,8 @@ void radix_2_dit_fft(float *data, int n, float *twiddle, int *bitrev, int ts, in
                 cplx a, b, w;
                 int index = j + i;
 
+
+		printf("i=%d , twi=%d, ts=%d ==> %d, %.4f\n",i, tw_index, ts, i* tw_index*ts, twd[i*tw_index*ts].real);
                 w.real = twd[i * tw_index * ts].real;
                 w.imag = twd[i * tw_index * ts].imag;
 
