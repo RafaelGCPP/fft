@@ -1,6 +1,9 @@
 
 cmake_minimum_required(VERSION 3.12)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 project(fft)
+
+
 
 set(CMAKE_C_COMPILER clang)
 add_compile_options(-Wall -Wextra -Wpedantic -Werror -ffixed-point)
