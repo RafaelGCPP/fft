@@ -3,7 +3,6 @@
 #include <math.h>
 #include "cplx_float.h"
 
-
 // This code assumes that n is a power of 2 and implements
 // a radix-2 DIT FFT algorithm.
 // data - input as real and imaginary interleaved.
@@ -42,8 +41,6 @@ void radix_2_dit_fft(float *data, int n, float *twiddle, int *bitrev, int ts, in
                 cplx a, b, w;
                 int index = j + i;
 
-
-		printf("i=%d , twi=%d, ts=%d ==> %d, %.4f\n",i, tw_index, ts, i* tw_index*ts, twd[i*tw_index*ts].real);
                 w.real = twd[i * tw_index * ts].real;
                 w.imag = twd[i * tw_index * ts].imag;
 
@@ -60,7 +57,7 @@ void radix_2_dit_fft(float *data, int n, float *twiddle, int *bitrev, int ts, in
                 }
                 cplx r;
                 cplx_mul(r, b, w);
-                b=r;
+                b = r;
 
                 cplx_add(cdata[index], a, b);
                 cplx_sub(cdata[index + stride], a, b);
