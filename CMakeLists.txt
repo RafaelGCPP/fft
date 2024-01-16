@@ -16,6 +16,7 @@ set(SOURCES
     fft_core.c
     fft_init.c
     rfft.c
+    cordic.c
 )
 
 
