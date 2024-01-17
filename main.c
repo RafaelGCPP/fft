@@ -2,6 +2,8 @@
 #include "rfft.h"
 #include "fft_init.h"
 #include <stdio.h>
+#include "cordic.h"
+#include <math.h>
 
 int main()
 {
@@ -9,6 +11,15 @@ int main()
     float data[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, -8.0, -7.0, -6.0, -5.0, -4.0, -3.0, -2.0, -1.0}; // interleaved real and imaginary parts
     float twiddle[n];
     int bitrev[n];
+
+    int t, s, c;
+    printf("-=-=-=-=-=-= Cordic test =-=-=-=-=-=-\n");
+    for (int i = -16; i <= 16; i++)
+    {
+        t = i * (0x40000000 >> 3);
+        cordic_sin_cos(t, &s, &c);
+        printf("sin(%f) = %f, cos(%d) = %f\n", (double)t / 0x80000000l, (double)s / 0x80000000l, t, (double)c / 0x80000000l);
+    }
 
     printf("-=-=-=-=-=-= Complex FFT test - floating point =-=-=-=-=-=-\n");
     // Precompute twiddle factors

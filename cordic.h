@@ -1,3 +1,3 @@
 #pragma once
 
-void cordic_sin_cos(double theta, double *sin, double *cos);
+void cordic_sin_cos(int theta, int *sin, int *cos);
