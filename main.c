@@ -5,21 +5,25 @@
 #include "cordic.h"
 #include <math.h>
 
-int main()
+void cordic_test()
 {
-    int n = 16;                                                                                              // Change this value for different sizes of the arrays (N)
-    float data[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, -8.0, -7.0, -6.0, -5.0, -4.0, -3.0, -2.0, -1.0}; // interleaved real and imaginary parts
-    float twiddle[n];
-    int bitrev[n];
-
+    int n = 16;
     int t, s, c;
     printf("-=-=-=-=-=-= Cordic test =-=-=-=-=-=-\n");
-    for (int i = -16; i <= 16; i++)
+    for (int i = -n; i <= n; i++)
     {
         t = i * (0x40000000 >> 3);
         cordic_sin_cos(t, &s, &c);
         printf("sin(%f) = %f, cos(%d) = %f\n", (double)t / 0x80000000l, (double)s / 0x80000000l, t, (double)c / 0x80000000l);
     }
+}
+
+void complex_fft_test()
+{
+    int n = 8;                                                                                               // Change this value for different sizes of the arrays (N)
+    float data[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, -8.0, -7.0, -6.0, -5.0, -4.0, -3.0, -2.0, -1.0}; // interleaved real and imaginary parts
+    float twiddle[n];
+    int bitrev[n];
 
     printf("-=-=-=-=-=-= Complex FFT test - floating point =-=-=-=-=-=-\n");
     // Precompute twiddle factors
@@ -46,6 +50,14 @@ int main()
     {
         printf("%.5f + %.5fi\n", data[2 * i], data[2 * i + 1]);
     }
+}
+
+void real_fft_test()
+{
+    int n = 16;                                                                                              // Change this value for different sizes of the arrays (N)
+    float data[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, -8.0, -7.0, -6.0, -5.0, -4.0, -3.0, -2.0, -1.0}; // interleaved real and imaginary parts
+    float twiddle[n];
+    int bitrev[n];
 
     printf("-=-=-=-=-=-= Real FFT test - floating point =-=-=-=-=-=-\n");
     n = 16;
@@ -66,6 +78,14 @@ int main()
     {
         printf("%.5f + %.5fi\n", data[2 * i], data[2 * i + 1]);
     }
+}
+
+int main()
+{
+
+    cordic_test();
+    complex_fft_test();
+    real_fft_test();
 
     return 0;
 }
