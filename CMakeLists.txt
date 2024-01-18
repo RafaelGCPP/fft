@@ -18,6 +18,8 @@ set(SOURCES
     rfft.c
     cordic.c
     fix_fft_init.c
+    fix_fft_core.c
+    fix_fft.c
 )
 
 

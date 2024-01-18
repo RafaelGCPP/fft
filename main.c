@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "cordic.h"
 #include "fix_fft_init.h"
+#include "fix_fft.h"
 #include <math.h>
 
 void cordic_test()
@@ -89,6 +90,48 @@ void complex_fft_test()
     }
 }
 
+void complex_fft_test_fix()
+{
+    int n = 8, l2n = 3;                                                    // Change this value for different sizes of the arrays (N)
+    int data[] = {1, 2, 3, 4, 5, 6, 7, 8, -8, -7, -6, -5, -4, -3, -2, -1}; // interleaved real and imaginary parts
+    int twiddle[n];
+    int bitrev[n];
+
+    for (int i = 0; i < 2 * n; i++)
+    {
+        data[i] = data[i] << 15;
+    }
+
+    printf("-=-=-=-=-=-= Complex FFT test - fixed point =-=-=-=-=-=-\n");
+    // Precompute twiddle factors
+    precompute_twiddle_factors_fix(twiddle, l2n);
+    precompute_bitrev_table(bitrev, n);
+
+    // Perform FFT
+    fft_fix(data, l2n, twiddle, bitrev);
+
+    // Display the FFT results
+    printf("FFT result:\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%.5f + %.5fi\n",
+               (float)data[2 * i] / 0x8000,
+               (float)data[2 * i + 1] / 0x8000);
+    }
+
+    // Perform IFFT
+    ifft_fix(data, l2n, twiddle, bitrev);
+
+    // Display the IFFT results
+    printf("IFFT result:\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%.5f + %.5fi\n",
+               (float)data[2 * i] / 0x8000,
+               (float)data[2 * i + 1] / 0x8000);
+    }
+}
+
 void real_fft_test()
 {
     int n = 16;                                                                                              // Change this value for different sizes of the arrays (N)
@@ -121,10 +164,11 @@ int main()
 {
 
     // cordic_test();
-    twiddle_test();
-    fix_twiddle_test();
-    // complex_fft_test();
+    // twiddle_test();
+    // fix_twiddle_test();
+    complex_fft_test();
     // real_fft_test();
+    complex_fft_test_fix();
 
     return 0;
 }
