@@ -3,6 +3,7 @@
 #include "fft_init.h"
 #include <stdio.h>
 #include "cordic.h"
+#include "fix_fft_init.h"
 #include <math.h>
 
 void cordic_test()
@@ -15,6 +16,30 @@ void cordic_test()
         t = i * (0x40000000 >> 3);
         cordic_sin_cos(t, &s, &c);
         printf("sin(%f) = %f, cos(%d) = %f\n", (double)t / 0x80000000l, (double)s / 0x80000000l, t, (double)c / 0x80000000l);
+    }
+}
+
+void twiddle_test()
+{
+    int n = 16;
+    float twiddle[n];
+    printf("-=-=-=-=-=-= Twiddle test =-=-=-=-=-=-\n");
+    precompute_twiddle_factors(twiddle, n);
+    for (int i = 0; i < n / 2; i++)
+    {
+        printf("cos(%d) = %f, sin(%d) = %f\n", i, twiddle[2 * i], i, twiddle[2 * i + 1]);
+    }
+}
+
+void fix_twiddle_test()
+{
+    int n = 16, l2n = 4;
+    int twiddle[n];
+    printf("-=-=-=-=-=-= Fix twiddle test =-=-=-=-=-=-\n");
+    precompute_twiddle_factors_fix(twiddle, l2n);
+    for (int i = 0; i < n / 2; i++)
+    {
+        printf("cos(%d) = %f, sin(%d) = %f\n", i, (double)twiddle[2 * i] / 0x80000000l, i, (double)twiddle[2 * i + 1] / 0x80000000l);
     }
 }
 
@@ -83,9 +108,11 @@ void real_fft_test()
 int main()
 {
 
-    cordic_test();
-    complex_fft_test();
-    real_fft_test();
+    // cordic_test();
+    twiddle_test();
+    fix_twiddle_test();
+    // complex_fft_test();
+    // real_fft_test();
 
     return 0;
 }
