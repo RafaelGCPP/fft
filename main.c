@@ -40,14 +40,18 @@ void fix_twiddle_test()
     precompute_twiddle_factors_fix(twiddle, l2n);
     for (int i = 0; i < n / 2; i++)
     {
-        printf("cos(%d) = %f, sin(%d) = %f\n", i, (double)twiddle[2 * i] / 0x80000000l, i, (double)twiddle[2 * i + 1] / 0x80000000l);
+        printf("cos(%d) = %f, sin(%d) = %f\n",
+               i, (double)twiddle[2 * i] / 0x80000000l,
+               i, (double)twiddle[2 * i + 1] / 0x80000000l);
     }
     printf("-=-=-=-=-=-= Fix twiddle error test =-=-=-=-=-=-\n");
 
     precompute_twiddle_factors(twiddle_f, n);
     for (int i = 0; i < n / 2; i++)
     {
-        printf("cos(%d) = %f, sin(%d) = %f\n", i, (double)twiddle[2 * i] / 0x80000000l - twiddle_f[2 * i], i, (double)twiddle[2 * i + 1] / 0x80000000l - twiddle_f[2 * i + 1]);
+        printf("cos(%d) = %f, sin(%d) = %f\n",
+               i, (double)twiddle[2 * i] / 0x80000000l - twiddle_f[2 * i],
+               i, (double)twiddle[2 * i + 1] / 0x80000000l - twiddle_f[2 * i + 1]);
     }
 }
 

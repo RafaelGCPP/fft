@@ -11,11 +11,12 @@ void precompute_twiddle_factors_fix(int *twiddle, int l2n)
     twiddle[0] = 0x7fffffff; // cos(0)==1 in Q31
     twiddle[1] = 0x00000000; // sin(0)==0 in Q31
 
-    twiddle[n/2]=0;
-    twiddle[n/2+1]=0x7fffffff;
+    // defining twiddle factor for pi/2 rad
+    twiddle[n / 2] = 0;
+    twiddle[n / 2 + 1] = 0x80000000;
 
     int angle = (int)(0x80000000l >> (l2n - 2)); // (4/n), and since cordic_sin_cos maps [0, pi/2) to [0,1)
-                                                 // then 4/n corresponds to 2*pi/n
+                                                 // then 4/n corresponds to 2*pi/n. See comment below.
     int theta = angle;
 
     for (int j = 1; j <= n / 8; j++)
@@ -33,12 +34,11 @@ void precompute_twiddle_factors_fix(int *twiddle, int l2n)
         twiddle[2 * j] = c;
         twiddle[2 * j + 1] = -s;
 
-        twiddle[2 * (n/4 -j)] = s;
-        twiddle[2 * (n/4 -j) + 1] = -c;
+        twiddle[2 * (n / 4 - j)] = s;
+        twiddle[2 * (n / 4 - j) + 1] = -c;
 
-
-        twiddle[2 * (n/4 +j)] = -s;
-        twiddle[2 * (n/4 +j) + 1] = -c;
+        twiddle[2 * (n / 4 + j)] = -s;
+        twiddle[2 * (n / 4 + j) + 1] = -c;
 
         twiddle[2 * (n / 2 - j)] = -c;
         twiddle[2 * (n / 2 - j) + 1] = -s;
