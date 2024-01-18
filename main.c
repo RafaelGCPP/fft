@@ -99,7 +99,7 @@ void complex_fft_test_fix()
 
     for (int i = 0; i < 2 * n; i++)
     {
-        data[i] = data[i] << 15;
+        data[i] = data[i] << 23;
     }
 
     printf("-=-=-=-=-=-= Complex FFT test - fixed point =-=-=-=-=-=-\n");
@@ -115,8 +115,8 @@ void complex_fft_test_fix()
     for (int i = 0; i < n; i++)
     {
         printf("%.5f + %.5fi\n",
-               (float)data[2 * i] / 0x8000,
-               (float)data[2 * i + 1] / 0x8000);
+               (float)data[2 * i] / 0x800000,
+               (float)data[2 * i + 1] / 0x80000);
     }
 
     // Perform IFFT
@@ -127,8 +127,8 @@ void complex_fft_test_fix()
     for (int i = 0; i < n; i++)
     {
         printf("%.5f + %.5fi\n",
-               (float)data[2 * i] / 0x8000,
-               (float)data[2 * i + 1] / 0x8000);
+               (float)data[2 * i] / 0x800000,
+               (float)data[2 * i + 1] / 0x800000);
     }
 }
 

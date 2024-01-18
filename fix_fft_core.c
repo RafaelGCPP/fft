@@ -10,7 +10,7 @@
 // twiddle - precomputed twiddle factors.
 // ts - twiddle stride, used when computing the real FFT.
 // This version uses no internal complex data types, and
-// fixed point arithmetic. Numbers are represented as S16.15.
+// fixed point arithmetic. Numbers are represented as S8.23.
 void radix_2_dit_fft_fix(int *data, int l2n, int *twiddle, int *bitrev, int ts, int direction)
 {
 

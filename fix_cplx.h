@@ -1,7 +1,7 @@
 #pragma once
 
 // This is a fixed-point implementation of complex numbers.
-// Fixed point numbers will be S16.15, i.e. 16 bits for the integer part and 15 bits for the fractional part.
+// Fixed point numbers will be S8.23, i.e. 8 bits for the integer part and 23 bits for the fractional part.
 
 typedef struct s_fix_complex
 {
@@ -9,7 +9,7 @@ typedef struct s_fix_complex
     int imag;
 } fix_cplx;
 
-#define fix_mul(x, y) ((int)((long long)x) * ((long long)y) >> 15)
+#define fix_mul(x, y) ((int)((long long)x) * ((long long)y) >> 23)
 #define fix_frac_mul(x, y) ((int)((long long)x) * ((long long)y) >> 31)
 
 #define fix_cplx_scale(x, s) (         \
