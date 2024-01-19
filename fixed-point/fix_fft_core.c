@@ -72,7 +72,7 @@ void radix_2_dit_fft_fix(int *data, int l2n, int *twiddle, int *bitrev, int ts, 
                     else
                     {
                         fix_cplx r;
-                        fix_frac_cplx_mul(r, b, w);
+                        fix_cplx_mul(r, b, w, 31);
                         b = r;
                     }
                 }

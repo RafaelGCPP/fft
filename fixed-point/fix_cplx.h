@@ -9,8 +9,7 @@ typedef struct s_fix_complex
     int imag;
 } fix_cplx;
 
-#define fix_mul(x, y) ((int)((long long)x) * ((long long)y) >> 23)
-#define fix_frac_mul(x, y) ((int)((long long)x) * ((long long)y) >> 31)
+#define fix_mul(x, y, N) ((int)((long long)x) * ((long long)y) >> (N))
 
 #define fix_cplx_scale(x, s) (         \
     (x).real = fix_mul((x).real, (s)), \
@@ -27,14 +26,9 @@ typedef struct s_fix_complex
     (r).imag = (x).imag - (y).imag, \
     (r))
 
-#define fix_cplx_mul(r, x, y) (                                           \
-    (r).real = fix_mul((x).real, (y).real) - fix_mul((x).imag, (y).imag), \
-    (r).imag = fix_mul((x).real, (y).imag) + fix_mul((x).imag, (y).real), \
-    (r))
-
-#define fix_frac_cplx_mul(r, x, y) (                                                \
-    (r).real = fix_frac_mul((x).real, (y).real) - fix_frac_mul((x).imag, (y).imag), \
-    (r).imag = fix_frac_mul((x).real, (y).imag) + fix_frac_mul((x).imag, (y).real), \
+#define fix_cplx_mul(r, x, y, N) (                                                  \
+    (r).real = fix_mul((x).real, (y).real, (N)) - fix_mul((x).imag, (y).imag, (N)), \
+    (r).imag = fix_mul((x).real, (y).imag, (N)) + fix_mul((x).imag, (y).real, (N)), \
     (r))
 
 #define fix_cplx_conj(r, x) ( \
