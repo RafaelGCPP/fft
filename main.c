@@ -103,7 +103,7 @@ void complex_fft_test_fix()
     printf("-=-=-=-=-=-= Complex FFT test - fixed point =-=-=-=-=-=-\n");
     // Precompute twiddle factors
     precompute_twiddle_factors_fix(twiddle, l2n);
-    precompute_bitrev_table(bitrev, n);
+    precompute_bitrev_table_fix(bitrev, l2n);
 
     // Perform FFT
     fft_fix(data, l2n, twiddle, bitrev);

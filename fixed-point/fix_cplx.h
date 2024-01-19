@@ -11,11 +11,6 @@ typedef struct s_fix_complex
 
 #define fix_mul(x, y, N) ((int)((long long)x) * ((long long)y) >> (N))
 
-#define fix_cplx_scale(x, s) (         \
-    (x).real = fix_mul((x).real, (s)), \
-    (x).imag = fix_mul((x).imag, (s)), \
-    (x))
-
 #define fix_cplx_add(r, x, y) (     \
     (r).real = (x).real + (y).real, \
     (r).imag = (x).imag + (y).imag, \

@@ -11,14 +11,13 @@ set(CMAKE_C_STANDARD 99)
 # Add your source files here
 set(SOURCES    
     fix_fft.c
+    fix_rfft.c
     fix_fft_core.c
     fix_fft_init.c
     cordic.c
 )
 
 # Add include directory to the include path
-#include_directories(../include)
-
 
 add_library(fixed-fft STATIC ${SOURCES})
 target_include_directories(fixed-fft PUBLIC ../include)
