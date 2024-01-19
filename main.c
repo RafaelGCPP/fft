@@ -1,11 +1,9 @@
-#include "fft.h"
-#include "rfft.h"
-#include "fft_init.h"
+#include <fft.h>
+#include <rfft.h>
 #include <stdio.h>
-#include "cordic.h"
-#include "fix_fft_init.h"
-#include "fix_fft.h"
+#include <fix_fft.h>
 #include <math.h>
+#include <cordic.h>
 
 void cordic_test()
 {

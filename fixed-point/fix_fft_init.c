@@ -1,5 +1,5 @@
-#include "cordic.h"
-#include "fix_fft_init.h"
+#include <cordic.h>
+#include <fix_fft.h>
 #include <string.h>
 
 void precompute_twiddle_factors_fix(int *twiddle, int l2n)
@@ -43,5 +43,22 @@ void precompute_twiddle_factors_fix(int *twiddle, int l2n)
         twiddle[2 * (n / 2 - j)] = -c;
         twiddle[2 * (n / 2 - j) + 1] = -s;
         theta += angle;
+    }
+}
+
+void precompute_bitrev_table_fix(int *bitrev, int l2n)
+{
+    int n = 1 << l2n;
+    bitrev[0] = 0;
+    for (int i = 1, j = 0; i < n; i++)
+    {
+        int k = n >> 1;
+        while (j >= k)
+        {
+            j -= k;
+            k >>= 1;
+        }
+        j += k;
+        bitrev[i] = j;
     }
 }

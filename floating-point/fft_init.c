@@ -1,5 +1,5 @@
 #include <math.h>
-#include "fft_init.h"
+#include <fft.h>
 
 void precompute_twiddle_factors(float *twiddle, int n)
 {
