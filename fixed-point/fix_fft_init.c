@@ -46,6 +46,11 @@ void precompute_twiddle_factors_fix(int *twiddle, int l2n)
     }
 }
 
+void precompute_twiddle_factors_rfft_fix(int *twiddle, int l2n)
+{
+    precompute_twiddle_factors_fix(twiddle, l2n);
+}
+
 void precompute_bitrev_table_fix(int *bitrev, int l2n)
 {
     int n = 1 << l2n;
@@ -61,4 +66,9 @@ void precompute_bitrev_table_fix(int *bitrev, int l2n)
         j += k;
         bitrev[i] = j;
     }
+}
+
+void precompute_bitrev_table_rfft_fix(int *bitrev, int l2n)
+{
+    precompute_bitrev_table_fix(bitrev, l2n - 1);
 }
