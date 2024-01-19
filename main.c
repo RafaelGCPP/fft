@@ -114,7 +114,7 @@ void complex_fft_test_fix()
     {
         printf("%.5f + %.5fi\n",
                (float)data[2 * i] / 0x800000,
-               (float)data[2 * i + 1] / 0x80000);
+               (float)data[2 * i + 1] / 0x800000);
     }
 
     // Perform IFFT
