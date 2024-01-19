@@ -9,6 +9,9 @@ set(CMAKE_C_STANDARD 99)
 # Add your source files here
 set(SOURCES
     main.c
+    complex_fft_tests.c
+    real_fft_tests.c
+    utils_tests.c
 )
 
 # Add include directory to the include path

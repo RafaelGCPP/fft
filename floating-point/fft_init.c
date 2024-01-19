@@ -10,25 +10,9 @@ void precompute_twiddle_factors(float *twiddle, int n)
     }
 }
 
-void precompute_twiddle_factors_sqrt(float *twiddle, int n)
+void precompute_twiddle_factors_rfft(float *twiddle, int n)
 {
-    twiddle[0] = 1.0; // 0 rad - i=0
-    twiddle[1] = 0.0;
-    twiddle[n / 2] = 0.0; // -pi/2 rad - i=n/4
-    twiddle[n / 2 + 1] = -1.0;
-
-    for (int m = n / 4; m > 1; m >>= 1)
-    {
-        int j = m / 2;
-        twiddle[2 * j] = sqrtf((1.0 + twiddle[2 * (2 * j)]) / 2.0);
-        twiddle[2 * j + 1] = -sqrtf((1.0 - twiddle[2 * (2 * j)]) / 2.0);
-
-        for (int i = m + j; i < n / 2; i += j)
-        {
-            twiddle[2 * i] = twiddle[2 * (i - j)] * twiddle[m] - twiddle[2 * (i - j) + 1] * twiddle[m + 1];
-            twiddle[2 * i + 1] = twiddle[2 * (i - j)] * twiddle[m + 1] + twiddle[2 * (i - j) + 1] * twiddle[m];
-        }
-    }
+    precompute_twiddle_factors(twiddle, n);
 }
 
 void precompute_bitrev_table(int *bitrev, int n)
@@ -45,4 +29,9 @@ void precompute_bitrev_table(int *bitrev, int n)
         j += k;
         bitrev[i] = j;
     }
+}
+
+void precompute_bitrev_table_rfft(int *bitrev, int n)
+{
+    precompute_bitrev_table(bitrev, n / 2);
 }
