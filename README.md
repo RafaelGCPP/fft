@@ -32,7 +32,7 @@ Please refer to the test files for usage examples. Note that no input checking o
 
 ## Potential Applications:
 
-- "Overlap-and-store" large FIR processing for efficient computation on IR simulators
+- "Overlap-save" or "Overlap-add" large FIR processing for efficient computation on IR simulators
 - Morse code detection and decoding
 
 
