@@ -43,10 +43,10 @@ void radix_2_dit_fft_fix(int *data, int l2n, int *twiddle, int *bitrev, int ts, 
             {
                 fix_cplx a, b, w;
                 int index = j + i;
-                int ti = i * tw_index * ts;
+                int ti = i * tw_index;
 
-                w.real = twd[ti].real;
-                w.imag = twd[ti].imag;
+                w.real = twd[ti * ts].real;
+                w.imag = twd[ti * ts].imag;
 
                 a.real = cdata[index].real;
                 a.imag = cdata[index].imag;
