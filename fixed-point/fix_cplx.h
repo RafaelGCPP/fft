@@ -13,20 +13,16 @@ typedef struct s_fix_complex
 
 #define fix_cplx_add(r, x, y) (     \
     (r).real = (x).real + (y).real, \
-    (r).imag = (x).imag + (y).imag, \
-    (r))
+    (r).imag = (x).imag + (y).imag)
 
 #define fix_cplx_sub(r, x, y) (     \
     (r).real = (x).real - (y).real, \
-    (r).imag = (x).imag - (y).imag, \
-    (r))
+    (r).imag = (x).imag - (y).imag)
 
 #define fix_cplx_mul(r, x, y, N) (                                                  \
     (r).real = fix_mul((x).real, (y).real, (N)) - fix_mul((x).imag, (y).imag, (N)), \
-    (r).imag = fix_mul((x).real, (y).imag, (N)) + fix_mul((x).imag, (y).real, (N)), \
-    (r))
+    (r).imag = fix_mul((x).real, (y).imag, (N)) + fix_mul((x).imag, (y).real, (N)))
 
 #define fix_cplx_conj(r, x) ( \
     (r).real = (x).real,      \
-    (r).imag = -(x).imag,     \
-    (r))
+    (r).imag = -(x).imag)

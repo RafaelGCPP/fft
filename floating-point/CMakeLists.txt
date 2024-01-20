@@ -22,3 +22,4 @@ set(SOURCES
 
 add_library(float-fft STATIC ${SOURCES})
 target_include_directories(float-fft PUBLIC ../include)
+target_link_libraries(float-fft PRIVATE m)

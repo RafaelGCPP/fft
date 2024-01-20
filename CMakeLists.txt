@@ -25,4 +25,4 @@ add_subdirectory(fixed-point)
 add_executable(fft ${SOURCES})
 
 # Add reference to libmath
-target_link_libraries(fft PRIVATE m float-fft fixed-fft)
+target_link_libraries(fft PRIVATE float-fft fixed-fft)
