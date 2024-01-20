@@ -9,7 +9,11 @@ void cordic_test()
     {
         t = i * (0x80000000l >> 4); // 1/16
         cordic_sin_cos(t, &s, &c);
-        printf("sin(%f) = %f, cos(%d) = %f\n", (double)t / 0x80000000l, (double)s / 0x80000000l, t, (double)c / 0x80000000l);
+        printf("sin(%f) = %f, cos(%f) = %f\n",
+               (double)t / 0x80000000l * M_PI / 2,
+               (double)s / 0x80000000l,
+               (double)t / 0x80000000l * M_PI / 2,
+               (double)c / 0x80000000l);
     }
 }
 
