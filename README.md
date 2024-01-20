@@ -19,7 +19,7 @@ This code implements a simple radix-2 decimation-in-time (DIT)  Fast Fourier Tra
 
 This code was primarily developed for use with the Raspberry Pi Pico board, which lacks FPU and MAC instructions. For Cortex-M4 or M7 processors, such as STM32x4 or STM32x7, it is recommended to use the CMSIS-DSP library, which can take advantage of FPU and fixed-point DSP instructions.
 
-The code can be built using CMake and gcc or clang. Follow these steps:
+The test code can be built using CMake and gcc or clang in Linux. Follow these steps:
 
 1. Run `cmake -B build .` to generate the makefiles.
 2. Run `cmake --build build` to build the code.

@@ -2,15 +2,15 @@
 
 void print_rfft(float *data, int n)
 {
-    printf("%.5f + %.5fi\n", data[0], 0.0);
+    printf("%10.5f%+10.5fi\n", data[0], 0.0);
     for (int i = 1; i < n / 2; i++)
     {
-        printf("%.5f + %.5fi\n", data[2 * i], data[2 * i + 1]);
+        printf("%10.5f%+10.5fi\n", data[2 * i], data[2 * i + 1]);
     }
-    printf("%.5f + %.5fi\n", data[1], 0.0);
+    printf("%10.5f%+10.5fi\n", data[1], 0.0);
     for (int i = n / 2 - 1; i > 0; i--)
     {
-        printf("%.5f + %.5fi\n", data[2 * i], -data[2 * i + 1]);
+        printf("%10.5f%+10.5fi\n", data[2 * i], -data[2 * i + 1]);
     }
 }
 
@@ -36,25 +36,25 @@ void real_fft_test()
     printf("IFFT result:\n");
     for (int i = 0; i < n; i++)
     {
-        printf("%.5f\n", data[i]);
+        printf("%10.5f\n", data[i]);
     }
 }
 
 void print_fix_rfft(int *data, int n)
 {
-    printf("%.5f + %.5fi\n",
+    printf("%10.5f%+10.5fi\n",
            (float)data[0] / 0x800000, 0.0);
     for (int i = 1; i < n / 2; i++)
     {
-        printf("%.5f + %.5fi\n",
+        printf("%10.5f%+10.5fi\n",
                (float)data[2 * i] / 0x800000,
                (float)data[2 * i + 1] / 0x800000);
     }
-    printf("%.5f + %.5fi\n",
+    printf("%10.5f%+10.5fi\n",
            (float)data[1] / 0x800000, 0.0);
     for (int i = n / 2 - 1; i > 0; i--)
     {
-        printf("%.5f + %.5fi\n",
+        printf("%10.5f%+10.5fi\n",
                (float)data[2 * i] / 0x800000,
                -(float)data[2 * i + 1] / 0x800000);
     }
@@ -87,6 +87,6 @@ void real_fft_test_fix()
     printf("IFFT result:\n");
     for (int i = 0; i < n; i++)
     {
-        printf("%.5f\n", (float)data[i] / 0x800000);
+        printf("%10.5f\n", (float)data[i] / 0x800000);
     }
 }

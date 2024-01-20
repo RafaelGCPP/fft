@@ -20,7 +20,7 @@ void complex_fft_test()
     printf("FFT result:\n");
     for (int i = 0; i < n; i++)
     {
-        printf("%.5f + %.5fi\n", data[2 * i], data[2 * i + 1]);
+        printf("%10.5f%+10.5fi\n", data[2 * i], data[2 * i + 1]);
     }
 
     // Perform IFFT
@@ -30,7 +30,7 @@ void complex_fft_test()
     printf("IFFT result:\n");
     for (int i = 0; i < n; i++)
     {
-        printf("%.5f + %.5fi\n", data[2 * i], data[2 * i + 1]);
+        printf("%10.5f%+10.5fi\n", data[2 * i], data[2 * i + 1]);
     }
 }
 
@@ -58,7 +58,7 @@ void complex_fft_test_fix()
     printf("FFT result:\n");
     for (int i = 0; i < n; i++)
     {
-        printf("%.5f + %.5fi\n",
+        printf("%10.5f%+10.5fi\n",
                (float)data[2 * i] / 0x800000,
                (float)data[2 * i + 1] / 0x800000);
     }
@@ -70,7 +70,7 @@ void complex_fft_test_fix()
     printf("IFFT result:\n");
     for (int i = 0; i < n; i++)
     {
-        printf("%.5f + %.5fi\n",
+        printf("%10.5f%+10.5fi\n",
                (float)data[2 * i] / 0x800000,
                (float)data[2 * i + 1] / 0x800000);
     }
