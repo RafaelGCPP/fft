@@ -1,6 +1,8 @@
 # Simple FFT for embedded use
 
-This code implements a simple radix-2 decimation-in-time (DIT)  Fast Fourier Transform (FFT) algorithm for both real and complex valued sequences. It is specifically designed for embedded systems, utilizing floating and fixed-point arithmetic and precomputed twiddle factors to optimize performance.
+This code implements a simple radix-2 decimation-in-time (DIT) in-place Fast Fourier Transform (FFT) algorithm for both real and complex valued sequences. It is specifically designed for embedded systems, utilizing floating and fixed-point arithmetic and precomputed twiddle factors to optimize performance.
+
+Compared to [KissFFT](https://github.com/mborgerding/kissfft), this code offers a smaller memory footprint by utilizing a single buffer for both input and output (in-place transformation). It also avoids dynamic memory allocation, which can be problematic in small microcontrollers. However, it should be noted that KissFFT supports arbitrary length FFTs through the use of mixed-radix transforms.
 
 ## Features:
 
@@ -8,6 +10,7 @@ This code implements a simple radix-2 decimation-in-time (DIT)  Fast Fourier Tra
 - Optimized for embedded systems
 - Utilizes floating and fixed-point arithmetic
 - Precomputed twiddle factors for improved performance
+- In-place computation for smaller memory footprint
 
 ## Limitations:
 
