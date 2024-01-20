@@ -1,38 +1,35 @@
 # Simple FFT for embedded use
 
-This code implements a rudimentary Fast Fourier Transform (FFT) algorithm for both real and complex valued sequences. It is specifically designed for embedded systems, utilizing floating-point arithmetic and precomputed twiddle factors to optimize performance.
+This code implements a rudimentary Fast Fourier Transform (FFT) algorithm for both real and complex valued sequences. It is specifically designed for embedded systems, utilizing floating and fixed-point arithmetic and precomputed twiddle factors to optimize performance.
+
+## Features:
+
+- Supports real and complex valued sequences
+- Optimized for embedded systems
+- Utilizes floating and fixed-point arithmetic
+- Precomputed twiddle factors for improved performance
+
+## Limitations:
+
+- Not highly optimized, intended for educational purposes
+- Only supports power-of-2 length FFTs
+- No input checking or array boundary validation
+
+## Usage:
+
+This code was primarily developed for use with the Raspberry Pi Pico board, which lacks FPU and MAC instructions. For Cortex-M4 or M7 processors, such as STM32x4 or STM32x7, it is recommended to use the CMSIS-DSP library, which can take advantage of FPU and fixed-point DSP instructions.
+
+The code can be built using CMake and gcc or clang. Follow these steps:
+
+1. Run `cmake -B build .` to generate the makefiles.
+2. Run `cmake --build build` to build the code.
+3. Run `build\fft` to run the test suite.
+
+Please refer to the test files for usage examples. Note that no input checking or array boundary validation is performed in the functions.
+
+## Potential Applications:
+
+- "Overlap-and-store" large FIR processing for efficient computation on IR simulators
+- Morse code detection and decoding
 
 
-
-### What this code is:
-
-- A simple implementation of a radix-2 decimation-in-time FFT
-- Using in-place calculations
-- An implementation of the real-valued FFT
-- Capable of floating and fixed-point operations
-
-### What this code isn't 
-
-- Highly optimized (It is more an educational project)
-- Capable of arbitrary length FFTs (only powers of 2 work)
-
-## Notes:
-
-This code was intended for use with my Raspberry Pi Pico board, as it does not have FPU nor MAC instructions. For usage on a Cortex-M4 or M7 processor (such as STM32x4, or STM32x7), I strongly suggest using the CMSIS-DSP library, as it might take advantage of the FPU and fixed-point DSP instructions. 
- 
-This code was built for my own entertainment only, and the most likely usage will be for "overlap-and-store" large FIR processing needed for efficient computation on IR simulators. I also plan on using it for a Morse code detector and decoder.
-
-For usage, check the tests files, but I tried to keep in line with the function signatures used in the Numerical Recipes books. Beware that no input checking is done to the functions and or array boundaries.
-
-## Building
-
-You need CMake and gcc or clang for building this code.
-
-Just run
-```
-cmake -B build .
-```
-for building the makefiles and then 
-```
-cmake --build build
-```
