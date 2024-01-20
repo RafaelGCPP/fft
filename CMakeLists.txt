@@ -12,7 +12,10 @@ include_directories(include)
 # Add subdirectories
 add_subdirectory(floating-point)
 add_subdirectory(fixed-point)
-add_subdirectory(testset)
+
+if(BUILD_TESTSET)
+    add_subdirectory(testset)
+endif()
 
 target_link_libraries(fixed-fft)
 target_link_libraries(float-fft)

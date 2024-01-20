@@ -24,9 +24,9 @@ This code was primarily developed for use with the Raspberry Pi Pico board, whic
 
 The test code can be built using CMake and gcc or clang in Linux. Follow these steps:
 
-1. Run `cmake -B build .` to generate the makefiles.
+1. Run `cmake -B build -D BUILD_TESTSET=1` to generate the makefiles.
 2. Run `cmake --build build` to build the code.
-3. Run `build\fft` to run the test suite.
+3. Run `build/testset/fft` to run the test suite.
 
 Please refer to the test files for usage examples. Note that no input checking or array boundary validation is performed in the functions.
 
