@@ -1,5 +1,6 @@
 
 #include "test_set.h"
+#include "benchmark.h"
 
 int main()
 {
@@ -11,6 +12,8 @@ int main()
     real_fft_test();
     complex_fft_test_fix();
     real_fft_test_fix();
+    fft_benchmark();
+    fixed_fft_benchmark();
 
     return 0;
 }

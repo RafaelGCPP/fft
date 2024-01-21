@@ -12,6 +12,7 @@ set(SOURCES
     complex_fft_tests.c
     real_fft_tests.c
     utils_tests.c
+    benchmark.c
 )
 
 
