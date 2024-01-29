@@ -4,7 +4,8 @@ This code implements a simple radix-2 decimation-in-time (DIT) in-place Fast Fou
 
 Compared to [KissFFT](https://github.com/mborgerding/kissfft), this code offers a smaller memory footprint by utilizing a single buffer for both input and output (in-place transformation). It also avoids dynamic memory allocation, which can be problematic in small microcontrollers. However, it should be noted that KissFFT supports arbitrary length FFTs through the use of mixed-radix transforms.
 
-Compared to CMSIS-DSP, it is 10000x slower. Really. 
+This library has comparable performance to CMSIS-DSP.
+
 
 ## Features:
 
