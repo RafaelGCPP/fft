@@ -64,8 +64,8 @@ void radix_2_dit_fft(float *data, int n, float *twiddle, int *bitrev, int ts, in
 
                 if (direction == -1)
                 {
-                    cplx_scale(cdata[index], 0.5);
-                    cplx_scale(cdata[index + stride], 0.5);
+                    cplx_half(cdata[index]);
+                    cplx_half(cdata[index + stride]);
                     if (tw_index == 1)
                     {
                         cplx_conj(cdata[index], cdata[index]);
